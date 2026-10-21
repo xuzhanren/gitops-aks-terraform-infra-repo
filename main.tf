@@ -2,7 +2,7 @@
 
 provider "azurerm" {
   features {}
-  skip_provider_registration = true
+  #skip_provider_registration = true
 }
 
 resource "azurerm_resource_group" "aks_rg" {
@@ -22,6 +22,9 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     vm_size    = var.vm_size  # Uses the VM size variable
   }
 
+  node_provisioning_profile {
+    mode = "Manual" # Or "Auto" depending on whether you are using Node Auto-Provisioning (NAP)
+  }
   identity {
     type = "SystemAssigned"
   }
